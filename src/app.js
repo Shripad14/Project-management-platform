@@ -4,6 +4,8 @@ import 'dotenv/config';
 
 import cors from 'cors';
 
+import healthCheckRouter from "./routes/healthcheck.routes.js";
+
 const app = express();
 
 // basic configurations
@@ -18,6 +20,8 @@ app.use(cors({
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Authorization", "Content-Type"]
 }));
+
+app.use("/api/v1/healthcheck", healthCheckRouter);
 
 app.get("/", (req, res) => {
     res.send("On / route.");
