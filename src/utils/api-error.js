@@ -1,3 +1,4 @@
+// Override Error class to print stack trace.
 class ApiError extends Error {
     constructor(
         statusCode,
