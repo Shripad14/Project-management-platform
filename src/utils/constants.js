@@ -1,3 +1,5 @@
+// Define consistent user roles and task status among project
+
 export const UserRolesEnum = {
     ADMIN: "admin",
     PROJECT_ADMIN: "project_admin",
