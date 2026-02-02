@@ -1,3 +1,4 @@
+// Pass custom API error response.
 class ApiResponse{
     constructor(statusCode, message="Success", data ){
         this.statusCode = statusCode;

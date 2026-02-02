@@ -14,10 +14,11 @@ const healthCheck = (req, res) => {
 };
 */
 
+// Actual controller of  /healthcheck route
 const healthCheck = asyncHandler(async (req, res) => {
     res 
         .status(200)
-        .json(new ApiResponse(200, {meessage: "Server is running."}));
+        .json(new ApiResponse(200, {message: "Server is running."}));
 });
 
 export { healthCheck };
