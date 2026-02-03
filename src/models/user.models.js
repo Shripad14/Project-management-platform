@@ -6,6 +6,8 @@ import jwt from "jsonwebtoken";
 
 import crypto, { createHmac } from "node:crypto";
 
+import bcrypt from "bcrypt";
+
 const userSchema = new Schema(
     {
         avatar: {
