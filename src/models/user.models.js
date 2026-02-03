@@ -6,6 +6,8 @@ import jwt from "jsonwebtoken";
 
 import crypto, { createHmac } from "node:crypto";
 
+import bcrypt from "bcrypt";
+
 const userSchema = new Schema(
     {
         avatar: {
@@ -17,48 +19,48 @@ const userSchema = new Schema(
                 url: `https://placehold.co/200x200`,
                 localPath: ""
             },
-            username: {
-                type: String,
-                required: true,
-                lowercase: true,
-                unique: true,
-                index: true,
-                trim: true,
-            },
-            email: {
-                type: String,
-                unique: true,
-                lowercase: true,
-                trim: true,
-                required: true,
-            },
-            fullname: {
-                type: String,
-                trim: true,
-            },
-            password: {
-                type: String,
-                required: [true, "Password is required"]
-            },
-            isEmailVerififed: {
-                type: Boolean,
-                default: false
-            },
-            refreshToken: {
-                type: String
-            },
-            forgotPaswordToken: {
-                type: String
-            },
-            forgotPasswordExpiry: {
-                type: Date
-            },
-            emailVerificationToken: {
-                type: String
-            },
-            emailVerificationExpiry: {
-                type: Date
-            }
+        },
+        username: {
+            type: String,
+            required: true,
+            lowercase: true,
+            unique: true,
+            index: true,
+            trim: true,
+        },
+        email: {
+            type: String,
+            unique: true,
+            lowercase: true,
+            trim: true,
+            required: true,
+        },
+        fullname: {
+            type: String,
+            trim: true,
+        },
+        password: {
+            type: String,
+            required: [true, "Password is required"]
+        },
+        isEmailVerififed: {
+            type: Boolean,
+            default: false
+        },
+        refreshToken: {
+            type: String
+        },
+        forgotPaswordToken: {
+            type: String
+        },
+        forgotPasswordExpiry: {
+            type: Date
+        },
+        emailVerificationToken: {
+            type: String
+        },
+        emailVerificationExpiry: {
+            type: Date
         }
     }, {
         timestamps: true
@@ -66,11 +68,10 @@ const userSchema = new Schema(
 );
 
 // Hash password in DB before saving it. 
-userSchema.pre("save", async function(next){
-    if(!this.isModified("password")) return next();
+userSchema.pre("save", async function(){
+    if(!this.isModified("password")) return;
 
     this.password = await bcrypt.hash(this.password, 10);
-    next();
 });
 
 // Check if password entered is correct.
