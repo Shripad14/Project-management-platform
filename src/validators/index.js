@@ -25,3 +25,15 @@ export const userRegisterValidator = () => {
             .trim(),    
     ];
 };
+
+export const userLoginValidator = () => {
+    return [
+        body("email")
+            .optional()
+            .isEmail()
+            .withMessage("Email is not valid"),
+        body("password")
+            .notEmpty()
+            .withMessage("Password is required"), 
+    ];
+};
